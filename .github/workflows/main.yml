@@ -1,0 +1,35 @@
+name: Extraer Partidos
+
+on:
+  schedule:
+    # Cada hora
+    - cron: '0 * * * *'
+  workflow_dispatch: # permite ejecutarlo manualmente desde GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repo
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Instalar librerías
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Ejecutar script
+      run: |
+        python extraer_partidos.py
+
+    - name: Guardar archivo generado
+      uses: actions/upload-artifact@v3
+      with:
+        name: partidos
+        path: partidos_explicativo.txt
