@@ -4,10 +4,10 @@ on:
   schedule:
     # Cada hora
     - cron: '0 * * * *'
-  workflow_dispatch: # permite ejecutarlo manualmente
+  workflow_dispatch:
 
 jobs:
-  build:
+  extraer:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
       run: python extraer_partidos.py
 
     - name: Guardar archivo generado
-      uses: actions/upload-artifact@v4   # <-- Cambiado a v4
+      uses: actions/upload-artifact@v4
       with:
         name: partidos
         path: partidos_explicativo.txt
