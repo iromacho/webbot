@@ -4,7 +4,7 @@ on:
   schedule:
     # Cada hora
     - cron: '0 * * * *'
-  workflow_dispatch: # permite ejecutarlo manualmente desde GitHub
+  workflow_dispatch: # permite ejecutarlo manualmente
 
 jobs:
   build:
@@ -25,11 +25,10 @@ jobs:
         pip install -r requirements.txt
 
     - name: Ejecutar script
-      run: |
-        python extraer_partidos.py
+      run: python extraer_partidos.py
 
     - name: Guardar archivo generado
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4   # <-- Cambiado a v4
       with:
         name: partidos
         path: partidos_explicativo.txt
